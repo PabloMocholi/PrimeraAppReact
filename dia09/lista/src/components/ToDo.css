@@ -1,0 +1,28 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+
+.DisplayTarjetas{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.TarjetaTarea{
+    border:1px solid black;
+    border-radius: 20px;
+    margin: 20px;
+    width: 300px;
+    padding: 10px;
+}
+
+.EstadoCompleta{
+    color: green;
+}
+
+.EstadoINCompleta{
+    color: red;
+}
