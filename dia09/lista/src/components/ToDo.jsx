@@ -30,8 +30,12 @@ const ToDo = () => {
                     {completada ? <span className='EstadoCompleta'>Estado: COMPLETADA</span> : <span className='EstadoINCompleta'>Estado: PENDIENTE</span>}
                     <br />
                     <button onClick={() => {
+                        
                         let tareasNuevas = [...tareas]
-                        { tareasNuevas[id].completada ? tareasNuevas[id].completada = false : tareasNuevas[id].completada = true }
+                        let actual = tareasNuevas.findIndex((t)=> t.id == id)
+                       // console.log(actual)
+
+                        { tareasNuevas[actual].completada ? tareasNuevas[actual].completada = false : tareasNuevas[actual].completada = true }
                         console.log(tareasNuevas)
                         setTarea(tareasNuevas)
                     }}>Actualizar</button>
@@ -56,6 +60,8 @@ const ToDo = () => {
                 <button onClick={()=>{
                     cont++
                     setTarea([...tareas,{id:cont, nombre:valorInput, completada:false} ])
+                    console.log(tareas)
+
               
                   
                 }}>Añadir</button>
@@ -71,7 +77,7 @@ const ToDo = () => {
                     })
                  
                 }</div>
-                {console.log(tareas)}
+           
                
         </>)
 
