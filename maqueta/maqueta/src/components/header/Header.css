@@ -1,20 +1,28 @@
-.Header{
+.Header {
     display: flex;
+    align-items: center;
 }
 
-.Header-h1{
-    
+.Header-a {
+    width: 30%;
+    padding: 40px;
+    color: black;
+    text-decoration: none;
+
+
 }
 
-.Header-img{
-    width: 15%;
+.Header-img {
+    width: 40%;
 }
 
-.Header-nav{
+.Header-nav {
     flex-grow: 1;
 }
 
-.Header-ul{
+.Header-ul {
     list-style-type: none;
-    display: flex; 
+    display: flex;
+    justify-content: space-around;
+
 }

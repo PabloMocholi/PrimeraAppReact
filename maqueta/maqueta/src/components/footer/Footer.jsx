@@ -1,4 +1,5 @@
 import { pixar } from '../../db/db.js'
+import './Footer.css'
 
 const { footer } = pixar
 const { logos, enlaces, copyright } = footer
@@ -6,9 +7,12 @@ const { logos, enlaces, copyright } = footer
 const Footer = () => {
 
     return (<>
-        <Logos />
-        <Enlaces />
-        <Copyright/>
+        <div className='DisplayFooter'>
+            <Logos />
+            <Enlaces />
+            <Copyright />
+        </div>
+
     </>)
 }
 
@@ -40,7 +44,7 @@ const Enlaces = () => {
                 enlaces.map((e) => {
                     return (
                         <>
-                            <Enlace {...e} /> 
+                            <Enlace {...e} />
                         </>
                     )
 
@@ -62,12 +66,12 @@ const Enlace = (props) => {
 }
 
 
-const Copyright = ()=>{
+const Copyright = () => {
 
-    return(<>
-       
+    return (<>
+
         <span>{copyright}</span>
-        
+
     </>)
 
 }

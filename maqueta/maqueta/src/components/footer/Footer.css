@@ -1,0 +1,32 @@
+.DisplayFooter{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Logos{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 50px;
+
+}
+
+.Logos-logo{
+    font-size: 170%;
+}
+
+.Enlaces{
+    display: flex;
+    flex-wrap: wrap;
+    width: 500px;
+    justify-content: center;
+    gap: 5px;
+    margin-bottom: 20px;
+}
+
+.Enlace-a{
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}

@@ -19,11 +19,11 @@ const Header = () => {
 const Logo = () => {
     const { href, src, title } = h1;
     return (<>
-        <h1 className="Header-h1">
+    
             <a href={href} className="Header-a">
                 <img className="Header-img" src={src} alt={title} />
             </a>
-        </h1></>)
+        </>)
 }
 
 const Nav = () => {
@@ -52,7 +52,7 @@ const Li = (props) => {
     const {href,text} = props
     return (<>
         <li  className="Header-li">
-            <a href={href}>{text}</a>
+            <a className='Header-a' href={href}>{text}</a>
         </li>
     </>)
 }
