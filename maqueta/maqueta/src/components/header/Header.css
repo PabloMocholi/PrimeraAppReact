@@ -1,7 +1,20 @@
 .Header{
-
+    display: flex;
 }
 
 .Header-h1{
     
+}
+
+.Header-img{
+    width: 15%;
+}
+
+.Header-nav{
+    flex-grow: 1;
+}
+
+.Header-ul{
+    list-style-type: none;
+    display: flex; 
 }

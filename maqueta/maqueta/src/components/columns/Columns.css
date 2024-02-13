@@ -1,0 +1,11 @@
+.Columns{
+    display: flex;
+}
+
+.Columns-column{
+    display: flex;
+    flex-direction: column;
+}
+.Columns-image{
+    width: 350px;
+}

@@ -1,4 +1,5 @@
 import { pixar } from '../../db/db.js'
+import './Header.css'
 
 const { header } = pixar
 const { h1, nav } = header
