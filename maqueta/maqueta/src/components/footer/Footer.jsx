@@ -2,7 +2,7 @@ import { pixar } from '../../db/db.js'
 import './Footer.css'
 
 const { footer } = pixar
-const { logos, enlaces, copyright } = footer
+const { logos, enlaces, copyright,boton } = footer
 
 const Footer = () => {
 
@@ -11,6 +11,7 @@ const Footer = () => {
             <Logos />
             <Enlaces />
             <Copyright />
+            <Boton/>
         </div>
 
     </>)
@@ -74,6 +75,14 @@ const Copyright = () => {
 
     </>)
 
+}
+
+const Boton = ()=>{
+    return(
+        <>
+        <button className='Footer-boton'>{boton}</button>
+        </>
+    )
 }
 
 export default Footer

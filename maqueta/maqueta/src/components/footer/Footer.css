@@ -30,3 +30,18 @@
     color: black;
     cursor: pointer;
 }
+
+.Footer-boton{
+    padding: 20px;
+    color: green;
+    border: 1px solid green;
+    margin-top: 20px;
+}
+
+
+.Footer-boton:hover{
+ 
+    color: white;
+    background-color: green;
+  
+}

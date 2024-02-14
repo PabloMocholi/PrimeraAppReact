@@ -76,7 +76,8 @@ export const pixar = {
             text:"TINTEREST-BASED ADS",
             href:"/"
         }],
-        copyright:"© 1986-2023 DISNEY / PIXAR"
+        copyright:"© 1986-2023 DISNEY / PIXAR",
+        boton: "Do Not Share or Sell My Personal Information"
     }
 
 }
