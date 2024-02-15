@@ -7,6 +7,9 @@ import Tabs from './components/Tabs/Tabs'
 import Accordion from './components/Accordion/Accordion'
 import LightBox from './components/Lightbox/LightBox'
 import Slider from './components/Slider/Slider'
+import ContadorRef from './components/ContadorRef/ContadorRef'
+import FocusRef from './components/ContadorRef/FocusRef'
+import LoginUseContext from './components/LoginUseContext'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -31,7 +34,10 @@ function App() {
       <Tabs />
       <Accordion items = {items} />
       <LightBox/>
-      <Slider items = {slider}/>
+      <Slider items = {slider}/><br></br>
+      <ContadorRef/><br></br><br></br>
+      <FocusRef/>
+      <LoginUseContext/>
     </>
   )
 }
