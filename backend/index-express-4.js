@@ -10,11 +10,11 @@ import xmlbuilder from "xmlbuilder"
 const app = express()
 console.clear()
 
-const datos = {
+const datos = [{
     id: 25,
     nombre: "Maria",
     email: "maria@email"
-}
+}]
 
 app.use(timelog)
 
@@ -56,6 +56,16 @@ app.get("/resp-html", (req, res) => {
     res.header("Content-Type", "text/html");
     res.send(html)
 
+})
+
+
+app.get("/resp-json/:idusario", (req, res) => {
+
+    const idusario = req.params.idusario;
+    const user = datos.find( u => u.id == idusario)
+    const jsonData = JSON.stringify(user)
+    res.setHeader("Content-Type", "application/json");
+    res.send(jsonData)
 })
 
 app.listen(PORT, () => {
