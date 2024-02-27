@@ -21,7 +21,25 @@ export const getLibroById = (req, res) => {
     res.status(200).send(responseApi);
 }
 export const updateLibro = (req, res) => {
-    responseApi.data = "";
+
+    //recibir datos del body
+    console.log(req.body)
+    const {id, titulo, autor, categoria} = req.body
+
+    //buscar libro por id
+    const index = listaLibros.findIndex(libro => libro.id == id)
+
+    //actualizo libro
+
+    listaLibros[index] = {
+        ...listaLibros[index], 
+        titulo,
+        autor,
+        categoria
+    }
+    //respondo con la nueva lista
+
+    responseApi.data = listaLibros
     responseApi.msg = "Actualizado ";
     responseApi.status = "ok";
     res.status(200).send(responseApi);
