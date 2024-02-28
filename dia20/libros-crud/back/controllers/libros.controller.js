@@ -45,15 +45,37 @@ export const updateLibro = (req, res) => {
     res.status(200).send(responseApi);
 }
 export const createLibro = (req, res) => {
-    responseApi.data = "";
-    responseApi.msg = "Creado";
+
+    const {titulo, autor, categoria} = req.body
+
+    const newId =  Math.random();
+    listaLibros.push({
+        id:newId,
+        titulo,
+        autor,
+        categoria
+    })
+
+    responseApi.data = listaLibros;
+    responseApi.msg = "Creado nuevo libro";
     responseApi.status = "ok";
     res.status(200).send(responseApi);
 }
 
 export const deleteLibro = (req, res) => {
-    responseApi.data = "";
-    responseApi.msg = "Eliminado";
-    responseApi.status = "ok";
-    res.status(200).send(responseApi);
+
+    const idLibro = req.params.id
+    const index = listaLibros.findIndex( libro => libro.id == idLibro )
+
+    if(index != -1){
+        responseApi.data = listaLibros[index];
+        listaLibros.splice(index,1)
+        responseApi.msg = "Eliminado";
+        responseApi.status = "ok";
+        res.status(200).send(responseApi);
+    }else{
+        responseApi.msg = "NO se encontró para elimiar";
+        res.status(404).send(responseApi);
+    }
+   
 }

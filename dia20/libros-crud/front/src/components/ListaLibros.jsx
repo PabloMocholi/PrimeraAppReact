@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import BookForm from "./BookForm"
+import { easyFetch } from "../../helpers/utils"
 
 
 
@@ -9,31 +10,39 @@ const ListaLibros = () => {
     const [listaLibros, setListaLibros] = useState([])
     const [editarLibro, setEditarLibro] = useState(null)
 
-    useEffect(()=>{
-        fetchLibros();
-    },[])
+    useEffect(() => {
+        //  fetchLibros();
 
+        easyFetch({
+            url: "http://localhost:3000/API/v1/libros",
+            callback: (data) => {
+                console.log(" recibo datos", data)
+                setListaLibros(data.data);
+            }
+        })
 
-    const fetchLibros = async()=>{
-        try{
+    }, [editarLibro])
+    /*
+    const fetchLibros = async () => {
+        try {
             const url = 'http://localhost:3000/API/v1/libros';
             const respose = await fetch(url);
 
-            if(!respose.ok){
+            if (!respose.ok) {
                 throw new Error('Error al obtener libros')
             }
 
             const data = await respose.json();
             setListaLibros(data.data);
-        }catch(error){
-            console.log("ERROR:", error  )
+        } catch (error) {
+            console.log("ERROR:", error)
         }
-    }
+    }*/
 
-    const handleEditarLibro = (libro)=>{
+    const handleEditarLibro = (libro) => {
         console.log(`${libro.id}`)
         setEditarLibro(libro)
-       
+
     }
 
 
@@ -43,20 +52,20 @@ const ListaLibros = () => {
         </h1>
         <div className="cardList">
             {
-                listaLibros.map( libro =>{
-                    return(<>
-                    
+                listaLibros.map(libro => {
+                    return (<>
+
                         <div className="card" key={libro.id}>
                             <h3>{libro.titulo}</h3>
                             <strong>Autor: </strong>{libro.autor}
                             <strong>Categoría: </strong>{libro.categoria}
-                            <button onClick={()=>handleEditarLibro(libro)}>Editar</button>
+                            <button onClick={() => handleEditarLibro(libro)}>Editar</button>
                         </div>
                     </>)
                 })
             }
         </div>
-        {editarLibro && <BookForm libro={editarLibro}/>}
+        {editarLibro && <BookForm key={editarLibro.id} libro={editarLibro} setEditarLibro={setEditarLibro} />}
     </>)
 }
 
