@@ -15,9 +15,11 @@ const ListaLibros = () => {
 
         easyFetch({
             url: "http://localhost:3000/API/v1/libros",
+
             callback: (data) => {
                 console.log(" recibo datos", data)
-                setListaLibros(data.data);
+                //setListaLibros(data.data);
+                setListaLibros(data)
             }
         })
 
@@ -51,7 +53,7 @@ const ListaLibros = () => {
             Lista de libros
         </h1>
         <div className="cardList">
-            {
+            {listaLibros &&
                 listaLibros.map(libro => {
                     return (<>
 

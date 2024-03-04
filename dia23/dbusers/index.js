@@ -54,8 +54,16 @@ app.put("/users/:id", async(req, res) => {
     res.json(user)
 })
 
-
+app.delete("/users/:id", async (req, res) => {
+    const user = await Users.findByPk(req.params.id)
+    if(user){
+        await user.destroy(req.body)
+        res.json({msg: "usuario eliminado correctamente"})
+    }else {
+        res.status(404).json({msg: "usuario no encontrado"})
+    }
+})
 
 app.listen(PORT, () => {
     console.log(`Running in ${fullDomain}`)
-})
+}) 
