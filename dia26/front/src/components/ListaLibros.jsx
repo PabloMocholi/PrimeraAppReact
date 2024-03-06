@@ -42,7 +42,7 @@ const ListaLibros = () => {
     }*/
 
     const handleEditarLibro = (libro) => {
-        console.log(`${libro.id}`)
+        console.log(`"ID LIBRO"${libro.id}`)
         setEditarLibro(libro)
 
     }
@@ -58,16 +58,16 @@ const ListaLibros = () => {
                     return (<>
 
                         <div className="card" key={libro.id}>
-                            <h3>{libro.titulo}</h3>
-                            <strong>Autor: </strong>{libro.libro}
-                            <strong>Categoría: </strong>{libro.categoria}
+                            <h3>{libro.libro}</h3>
+                            <strong>Autor: </strong>{libro.autor}
+                            <span> Precio:  {libro.precio}</span>
                             <button onClick={() => handleEditarLibro(libro)}>Editar</button>
                         </div>
                     </>)
                 })
             }
         </div>
-        {editarLibro && <BookForm key={editarLibro.id} libro={editarLibro} setEditarLibro={setEditarLibro} />}
+        {editarLibro && <BookForm key={editarLibro.id} libro_info={editarLibro} setEditarLibro={setEditarLibro} />}
     </>)
 }
 
