@@ -4,9 +4,9 @@ const Agregar = () => {
 
     const emptyBook ={
         id:0,
-        titulo:"",
+        libro:"",
         autor:"",
-        categoria:""
+        precio:""
     }
 
     return (<>
@@ -14,7 +14,7 @@ const Agregar = () => {
             <h1>
                 Agregar libro nuevo
             </h1>
-            <BookForm libro={emptyBook}/>
+            <BookForm libro_info={emptyBook}/>
     </>)
 }
 

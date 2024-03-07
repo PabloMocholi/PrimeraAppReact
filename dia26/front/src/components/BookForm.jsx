@@ -121,21 +121,22 @@ const BookForm = ({ libro_info, setEditarLibro }) => {
         <h2>Formulario</h2>
         <form className="main-form">
             <label htmlFor="">Nombre del libro:</label>
-            <input type="text"
+            <input required type="text"
                 className="input-control"
-                name="titulo"
+                name="libro"
                 value={libro}
                 placeholder="Ingrese titulo del libro"
                 onChange={handleInputChange} />
-            <br />
-            <label htmlFor="">Autor:</label>
-            <input type="text"
-                className="input-control"
-                name="autor"
-                value={autor}
-                placeholder="Ingrese autor del libro"
-                onChange={handleInputChange} />
-            <br />
+            <br />{!id && <>
+                <label htmlFor="">Autor:</label>
+                <input type="text"
+                    className="input-control"
+                    name="autor"
+                    value={autor}
+                    placeholder="Ingrese autor del libro"
+                    onChange={handleInputChange} />
+                <br /></>}
+
             <label htmlFor="">Precio:</label>
             <input type="text"
                 className="input-control"
@@ -144,20 +145,20 @@ const BookForm = ({ libro_info, setEditarLibro }) => {
                 placeholder="Ingrese precio del libro"
                 onChange={handleInputChange} />
             <br />
-          
+
         </form>
 
         {
-                id ? (//editar o actualizar
-                    <>
-                        <button onClick={handleRemoveBook}>Eliminar</button>
-                        <button onClick={handleUpdateBook}>Guardar</button>
-                    </>
+            id ? (//editar o actualizar
+                <>
+                    <button onClick={handleRemoveBook}>Eliminar</button>
+                    <button onClick={handleUpdateBook}>Guardar</button>
+                </>
 
-                ) : (//añadir (id=0)
-                    <button onClick={handleCreateBook}>Crear</button>
-                )
-            }
+            ) : (//añadir (id=0)
+                <button onClick={handleCreateBook}>Crear</button>
+            )
+        }
 
 
     </>)

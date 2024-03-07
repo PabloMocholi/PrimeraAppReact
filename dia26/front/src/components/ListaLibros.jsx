@@ -9,6 +9,7 @@ const ListaLibros = () => {
 
     const [listaLibros, setListaLibros] = useState([])
     const [editarLibro, setEditarLibro] = useState(null)
+    const [categorias, setCategoriasLibro] = useState([])
 
     useEffect(() => {
         //  fetchLibros();
@@ -45,6 +46,19 @@ const ListaLibros = () => {
         console.log(`"ID LIBRO"${libro.id}`)
         setEditarLibro(libro)
 
+
+        easyFetch({
+            url: "http://localhost:3000/API/v1/librosCategorias/" + libro.id,
+
+            callback: (data) => {
+                console.log(" recibo datos", data)
+                //setListaLibros(data.data);
+                setCategoriasLibro(data)
+                console.log(data)
+            }
+        })
+
+
     }
 
 
@@ -61,13 +75,30 @@ const ListaLibros = () => {
                             <h3>{libro.libro}</h3>
                             <strong>Autor: </strong>{libro.autor}
                             <span> Precio:  {libro.precio}</span>
+
                             <button onClick={() => handleEditarLibro(libro)}>Editar</button>
                         </div>
                     </>)
                 })
             }
         </div>
-        {editarLibro && <BookForm key={editarLibro.id} libro_info={editarLibro} setEditarLibro={setEditarLibro} />}
+        {editarLibro &&
+            <>
+                {
+                    categorias &&
+                    categorias.map(c => {
+
+                        return (<> 
+                        <span>{c.categoria}</span>
+                        </>)
+
+                    })
+
+                }
+                <BookForm key={editarLibro.id} libro_info={editarLibro} setEditarLibro={setEditarLibro} />
+
+            </>
+        }
     </>)
 }
 
