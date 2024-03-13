@@ -1,5 +1,8 @@
-export const PORT = 3000
+import dotenv from 'dotenv'
+dotenv.config()
 
-export const domain = "http://localhost"
+export const PORT = process.env.PORT || 3000
+
+export const domain = process.env.DOMAIN ||  "http://localhost"
 
 export const fullDomain = `${domain}:${PORT}`
