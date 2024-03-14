@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 
 import { easyFetch } from "../../helpers/utils"
-import AutorForm from "./AutorForm"
+import AutorForm from "../components/AutorForm"
 
 
 

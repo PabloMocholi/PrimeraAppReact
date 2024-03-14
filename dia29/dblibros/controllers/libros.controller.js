@@ -1,10 +1,4 @@
-import mysql from 'mysql2/promise'
-
-const connection = await mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    database: 'db_biblioteca'
-})
+import connection from '../db/mysql.db.js'
 
 const responseApi = {
     data: [],
