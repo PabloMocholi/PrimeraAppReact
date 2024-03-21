@@ -12,6 +12,8 @@ export const getAllLibros = async (req, res) => {
         'SELECT libros.*, autores.autor  FROM libros LEFT JOIN autores ON (libros.id_autor = autores.id) '
     );
 
+    // console.log(results);
+    // console.log(fields)
     res.status(200).send(results);
 
 }
@@ -22,7 +24,8 @@ export const getLibroById = async (req, res) => {
         'SELECT * FROM libros WHERE libros.id =' + idLibro
     );
 
-    
+    console.log(results);
+    console.log(fields)
     res.status(200).send(results);
 
 }
@@ -112,3 +115,12 @@ export const getCategoriasLibros = async (req, res) => {
     res.status(200).send(results);
 
 }
+
+
+export const alquilarLibro = async (req, res) => {
+
+
+}
+
+
+

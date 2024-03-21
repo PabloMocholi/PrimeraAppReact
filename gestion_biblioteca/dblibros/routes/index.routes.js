@@ -2,12 +2,11 @@ import { Router } from "express";
 import { createLibro, deleteLibro, getAllLibros, getCategoriasLibros, getLibroById, updateLibro } from "../controllers/libros.controller.js";
 import { getAllAutores, updateAutor } from "../controllers/autores.controller.js";
 import { getUser, registerUser } from "../controllers/login.controller.js";
-import { logger } from "../middlewares/logger.js";
 
 const router = Router();
 
 
-router.get("/libros", logger, getAllLibros)
+router.get("/libros", getAllLibros)
 router.get("/libros/:id", getLibroById)
 router.post("/libros", createLibro)
 router.put("/libros/:id",updateLibro)

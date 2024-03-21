@@ -11,6 +11,8 @@ const ListaLibros = () => {
     const [editarLibro, setEditarLibro] = useState(null)
     const [categorias, setCategoriasLibro] = useState([])
 
+    const {userData} = useContext(LoginContext);
+
     useEffect(() => {
         //  fetchLibros();
 
@@ -18,7 +20,7 @@ const ListaLibros = () => {
             url: "http://localhost:3000/API/v1/libros",
 
             callback: (data) => {
-        
+                console.log(" recibo datos", data)
                 //setListaLibros(data.data);
                 setListaLibros(data)
             }
@@ -62,6 +64,26 @@ const ListaLibros = () => {
     }
 
 
+    const handleAlquilarLibro = (libro) => {
+        console.log(`"ID LIBRO"${libro.id}`)
+        setEditarLibro(libro)
+
+
+        easyFetch({
+            url: "http://localhost:3000/API/v1/librosCategorias/" + libro.id,
+
+            callback: (data) => {
+                console.log(" recibo datos", data)
+                //setListaLibros(data.data);
+                setCategoriasLibro(data)
+                console.log(data)
+            }
+        })
+
+
+    }
+
+
     return (<>
         <h1>
             Lista de libros
@@ -77,6 +99,7 @@ const ListaLibros = () => {
                             <span> Precio:  {libro.precio}</span>
 
                             <button onClick={() => handleEditarLibro(libro)}>Editar</button>
+                            <button>Alquilar</button>
                         </div>
                     </>)
                 })
