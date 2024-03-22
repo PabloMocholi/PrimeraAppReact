@@ -37,7 +37,8 @@ const Login = () => {
                     setStatedLoged(true);
                     setUserData({
                         id:  data.data[0].id,
-                        usuario:  data.data[0].usuario})
+                        usuario:  data.data[0].usuario,
+                        is_admin: data.data[0].is_admin})
                     navegador("/home")
                 } else {
                     alert("Usuario incorrecto")

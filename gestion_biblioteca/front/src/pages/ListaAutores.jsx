@@ -2,6 +2,9 @@ import { useState, useEffect } from "react"
 
 import { easyFetch } from "../../helpers/utils"
 import AutorForm from "../components/AutorForm"
+import { useContext } from "react"
+import { LoginContext } from '../App';
+
 
 
 
@@ -9,6 +12,8 @@ const ListaAutores = () => {
 
     const [listaAutores, setListaAutores] = useState([])
     const [editarAutor, setEditarAutor] = useState(null)
+
+    const { userData } = useContext(LoginContext);
 
 
     useEffect(() => {
@@ -40,7 +45,11 @@ const ListaAutores = () => {
 
                     <div className="card" key={autor.id}>
                         <h3>{autor.autor}</h3>
-                        <button onClick={() => handleEditarAutor(autor)}>Editar</button>
+                        {
+                            userData.is_admin &&
+                            <button onClick={() => handleEditarAutor(autor)}>Editar</button>
+                        }
+
 
 
                     </div>

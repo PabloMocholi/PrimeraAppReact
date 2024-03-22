@@ -11,6 +11,7 @@ import ListaLibros from './pages/ListaLibros'
 import ListaAutores from './pages/ListaAutores'
 import Login from './components/Login'
 import { useNavigate } from "react-router-dom"
+import Perfil from './pages/Perfil'
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
         <Route path='/lista' element={<ListaLibros />}></Route>
         <Route path='/agregar' element={<Agregar />}></Route>
         <Route path='/autores' element={<ListaAutores />}></Route>
+        <Route path='/perfil' element={<Perfil />}></Route>
 
         <Route path='/logout' element={<Login />}></Route>
 

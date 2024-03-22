@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom"
 
 const Navigation = () => {
 
-    const {isLoged, setStatedLoged, setUserData} = useContext(LoginContext);
-   
+    const { isLoged, setStatedLoged, userData, setUserData } = useContext(LoginContext);
+
     const navegador = useNavigate()
 
 
@@ -32,8 +32,15 @@ const Navigation = () => {
                         <li>
                             <Link to="/autores">Lista Autores</Link>
                         </li>
+                        {
+                            userData.is_admin == 1 &&
+                            <li>
+                                <Link to="/agregar">Agregar</Link>
+                            </li>
+                        }
+
                         <li>
-                            <Link to="/agregar">Agregar</Link>
+                            <Link to="/perfil">Perfil</Link>
                         </li>
                         <li> <button onClick={Logout}>Logout</button> </li></> :
                         <li><Link to="/login">Login</Link>
