@@ -75,6 +75,30 @@ app.get("/productos", async (req, res, next) => {
     res.json(results)
 })
 
+
+app.put("/producto/:id", async (req, res, next) => {
+
+    console.log("HE MANDADO ACTUALIZAR", req.body);
+
+
+    const { titulo} = req.body
+    const { id } = req.params
+    console.log(id)
+    try {
+        //const productoEditado = await Producto.findById(id)
+        
+        const productoEditado = await Producto.findByIdAndUpdate(id, { titulo }) //{name:name, username:username}
+        console.log("EDITADO", productoEditado)
+        res.json(productoEditado)
+    } catch (error) {
+
+        res.json(error)
+
+    }
+
+})
+
+
 // app.get("/nombre/:nombre/:edad", async (req, res, next) => {
 
 //     const { nombre, edad } = req.params
