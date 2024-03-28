@@ -42,6 +42,7 @@ const conexion = async () => {
 
 conexion();
 
+/*------------------ */
 const options = {
     collection: "productos",
 
@@ -58,7 +59,33 @@ const productoSchema = new mongoose.Schema({
     
 }, options)
 
+
+
 const Producto = mongoose.model("Producto", productoSchema)
+
+const options2 = {
+    collection: "carrito",
+
+}
+const carritoSchema = new mongoose.Schema({
+
+    productos: Array,
+    id_usuario: Number,
+    precio: Number,
+    fecha: {
+        type: Date,
+        default: Date.now
+    }
+
+    
+}, options2)
+
+
+const Carrito = mongoose.model("Carrito", carritoSchema)
+
+
+/*------------------ */
+
 
 app.get("/", async (req, res, next) => {
 
@@ -97,6 +124,36 @@ app.put("/producto/:id", async (req, res, next) => {
     }
 
 })
+
+app.post("/carrito", async (req, res, next) => {
+
+    console.log("Añadir a carrito");
+    const carrito  = req.body
+    console.log(carrito)
+
+    const productos = carrito[0]
+    const precio = carrito[1]
+
+    const nuevaCompra = new Carrito({
+
+        productos: productos,
+        id_usuario: "1",
+        precio: precio,
+        fecha: Date.now()
+
+    })
+
+    await nuevaCompra.save();
+
+    //Duelve todos los usuarios
+    const allCompras = await Carrito.find()
+    res.json(allCompras)
+
+    
+
+})
+
+
 
 
 // app.get("/nombre/:nombre/:edad", async (req, res, next) => {

@@ -1,0 +1,4 @@
+.Carrito{
+    display: flex;
+    flex-direction: column;
+}

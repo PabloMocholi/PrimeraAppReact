@@ -1,8 +1,10 @@
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, createContext } from "react";
 import { easyFetch } from "../../../helpers/utils.js"
 import './productos.css'
+import Carrito from "../carrito/carrito.jsx";
 
+export const carritoContext = createContext([]);
 
 const Productos = () => {
 
@@ -12,6 +14,8 @@ const Productos = () => {
     const [editarProducto, setEditarProducto] = useState({})
     const [formData, setFormData] = useState({})
     const [fetchRealizado, setFetchRealizado] = useState(false);
+
+    const [carrito, setCarrito] = useState([])
 
     useEffect(() => {
         if (!fetchRealizado) { // Verificar si el fetch ya se ha realizado
@@ -25,13 +29,10 @@ const Productos = () => {
     }, [editarProducto]);
 
 
-
     const handleInputChange = (e) => {
         const { name, value } = e.target
         setEditarProducto({ ...editarProducto, [name]: value });
     }
-
-
 
     const fetchProductos = () => {
         easyFetch({
@@ -46,7 +47,6 @@ const Productos = () => {
         })
 
     }
-
 
     const actualizoBuscador = (e) => {
         setBuscador(e.target.value);
@@ -91,64 +91,123 @@ const Productos = () => {
             callback: (data) => {
                 console.log(" actualizado con exito!", data)
                 setFetchRealizado(false)
-               
+                setEditarProducto("")
             }
         })
+
+    }
+
+    const addToCarrito = (producto) => {
+
+        console.log("Carrito", producto)
+
+        const index = carrito.findIndex(item => item._id === producto._id);
+
+
+        if (index !== -1) {
+            console.log("ya en carrito")
+            const nuevoCarrito = [...carrito];
+
+            if(producto.descuento == 0){
+                nuevoCarrito[index] = {
+                    ...nuevoCarrito[index],
+                    nuevo_precio: (nuevoCarrito[index].nuevo_precio + nuevoCarrito[index].precio).toFixed(2),
+                    cantidad: nuevoCarrito[index].cantidad + 1
+                };
+
+            }else{
+                nuevoCarrito[index] = {
+                    ...nuevoCarrito[index],
+                    nuevo_precio: (parseFloat(nuevoCarrito[index].nuevo_precio) + parseFloat((producto.precio * (producto.descuento / 100)).toFixed(2))).toFixed(2),
+                    cantidad: nuevoCarrito[index].cantidad + 1
+                };
+
+            }
+          
+            setCarrito(nuevoCarrito)
+
+
+
+        } else {
+            if(producto.descuento == 0)
+                setCarrito([...carrito, { ...producto, cantidad: 1, nuevo_precio: producto.precio }])
+            else
+                setCarrito([...carrito, { ...producto, cantidad: 1, nuevo_precio: parseFloat((producto.precio * (producto.descuento / 100))).toFixed(2) }])
+
+            console.log(carrito)
+            
+        }
+
 
     }
 
 
     return (<>
 
-        <input type="text" name="buscador" id="buscador" placeholder="Buscador" onChange={actualizoBuscador} />
-        <button onClick={() => actualizarFiltro("animales")}>Animales</button>
-        <button onClick={() => actualizarFiltro("plantas")}>Plantas</button>
-        <button onClick={() => actualizarFiltro("decoracion")}>Decoracion</button>
-        {filtro != "" && <button onClick={() => actualizarFiltro("")} >Quitar filtro</button>}
-        <div className="Productos">
-            {
-                productos && productosFiltrados.map((producto) => {
+        <carritoContext.Provider value={{ carrito, setCarrito }}>
 
-                    return (<>
-
-                        <div className="Producto">
-                            <span>{producto.titulo}</span><br />
-                            <span>{producto.precio}</span><br />
-                            <span>{producto.categoria}</span>
-                            <img src={producto.imagen} alt="" />
-                            <button onClick={() => editProducto(producto)}>Editar</button>
-                        </div>
-
-
-                    </>)
-
-                })
-            }</div>
-
-        {
-            Object.keys(editarProducto).length > 0 && <>
-
+            <div className="PageProductos">
                 <div>
-                    <span onClick={cerrarEdicion}>Cerrar </span>
-                    <form className="main-form">
-                        <label htmlFor="titulo">Nombre del producto</label>
-                        <input required type="text"
-                            className="input-control"
-                            name="titulo"
-                            value={editarProducto.titulo}
-                            placeholder="Ingrese titulo del producto"
-                            onChange={handleInputChange}
-                        />
-                        <br />
+                    <input type="text" name="buscador" id="buscador" placeholder="Buscador" onChange={actualizoBuscador} />
+                    <button onClick={() => actualizarFiltro("animales")}>Animales</button>
+                    <button onClick={() => actualizarFiltro("plantas")}>Plantas</button>
+                    <button onClick={() => actualizarFiltro("decoracion")}>Decoracion</button>
+                    {filtro != "" && <button onClick={() => actualizarFiltro("")} >Quitar filtro</button>}
+                    <div className="Productos">
+                        {
+                            productos && productosFiltrados.map((producto) => {
+
+                                return (<>
+
+                                    <div className="Producto">
+                                        <span>{producto.titulo}</span><br />
+                                        {
+                                            producto.descuento == 0 ? <> <span>{producto.precio}</span><br /></> :
+                                                <><span>{(producto.precio * (producto.descuento / 100)).toFixed(2)}</span><br /></>
+                                        }
+                                        <span>{producto.categoria}</span>
+                                        <img src={producto.imagen} alt="" />
+                                        <button onClick={() => editProducto(producto)}>Editar</button>
+                                        <button onClick={() => addToCarrito(producto)}>Añadir a carrito</button>
+                                    </div>
+
+
+                                </>)
+
+                            })
+                        }</div>
+
+                    {
+                        Object.keys(editarProducto).length > 0 && <>
+
+                            <div>
+                                <span onClick={cerrarEdicion}>Cerrar </span>
+                                <form className="main-form">
+                                    <label htmlFor="titulo">Nombre del producto</label>
+                                    <input required type="text"
+                                        className="input-control"
+                                        name="titulo"
+                                        value={editarProducto.titulo}
+                                        placeholder="Ingrese titulo del producto"
+                                        onChange={handleInputChange}
+                                    />
+                                    <br />
 
 
 
-                    </form>
-                    <button onClick={() => handleUpdateBook(editarProducto._id)}>Guardar</button>
+                                </form>
+                                <button onClick={() => handleUpdateBook(editarProducto._id)}>Guardar</button>
 
+                            </div>
+                        </>
+                    }
                 </div>
-            </>
-        }
+
+                <Carrito />
+            </div>
+
+
+        </carritoContext.Provider>
     </>)
 }
 
